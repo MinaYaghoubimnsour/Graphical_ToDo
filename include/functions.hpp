@@ -8,5 +8,7 @@
 
 
 void setTime(sf::Text &, sf::Font &, sf::Sprite &);
+void partOfAddText(sf::RenderWindow &, sf::Text &, sf::Font &);
+
 
 #endif // FUNCTIOS_HPP

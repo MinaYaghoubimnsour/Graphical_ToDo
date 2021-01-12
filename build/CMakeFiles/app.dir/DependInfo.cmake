@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/fn/exercise5_991/src/functions.cpp" "/home/fn/exercise5_991/build/CMakeFiles/app.dir/src/functions.cpp.o"
-  "/home/fn/exercise5_991/src/main.cpp" "/home/fn/exercise5_991/build/CMakeFiles/app.dir/src/main.cpp.o"
+  "/mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo/src/functions.cpp" "/mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo/build/CMakeFiles/app.dir/src/functions.cpp.o"
+  "/mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo/src/main.cpp" "/mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo/build/CMakeFiles/app.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

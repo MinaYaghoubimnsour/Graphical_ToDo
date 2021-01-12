@@ -1,4 +1,4 @@
-# Install script for directory: /home/fn/exercise5_991
+# Install script for directory: /mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/fn/exercise5_991/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
