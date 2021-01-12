@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "functions.hpp"
 using namespace std;
 
 int main()
@@ -21,6 +22,12 @@ int main()
   calendarTexture.loadFromFile("/home/fn/exercise5_991/schedule.png");
   calendarSpr.setTexture(calendarTexture);
   calendarSpr.setPosition(sf::Vector2f(10, 0));
+
+  //date and time
+  sf::Text timeTxt;
+  sf::Font font;
+  font.loadFromFile("/home/fn/exercise5_991/blackjack.otf");
+  setTime(timeTxt, font, calendarSpr);
   while (window.isOpen())
   {
     while (window.pollEvent(event))
@@ -32,6 +39,7 @@ int main()
     }
     window.draw(backgroundSpr); // draw picture of background
     window.draw(calendarSpr);   // draw calendar icon
+    window.draw(timeTxt);       // draw date and time
     window.display(); // display window
   }
   return 0;

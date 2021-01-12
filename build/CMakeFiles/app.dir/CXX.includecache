@@ -6,9 +6,25 @@
 
 #IncludeRegexTransform: 
 
+../include/functions.hpp
+SFML/Graphics.hpp
+../include/SFML/Graphics.hpp
+SFML/Window.hpp
+-
+SFML/System.hpp
+-
+iostream
+-
+
+/home/fn/exercise5_991/src/functions.cpp
+functions.hpp
+/home/fn/exercise5_991/src/functions.hpp
+
 /home/fn/exercise5_991/src/main.cpp
 iostream
 -
 SFML/Graphics.hpp
 -
+functions.hpp
+/home/fn/exercise5_991/src/functions.hpp
 
