@@ -31,6 +31,7 @@ int main()
   //a part for add a task
   sf::Text addTxt;
   partOfAddText(window, addTxt, font);
+  
   while (window.isOpen())
   {
     while (window.pollEvent(event))

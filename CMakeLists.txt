@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 project(ToDo)
 set(CMAKE_CXX_STANDARD 11)
-add_executable(app src/main.cpp src/functions.cpp)
+add_executable(app src/main.cpp src/functions.cpp src/task.cpp)
 include_directories(include)
 target_link_libraries(app sfml-window sfml-system sfml-graphics)
