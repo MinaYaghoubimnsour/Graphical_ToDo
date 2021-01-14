@@ -21,3 +21,11 @@ void partOfAddText(sf::RenderWindow &window, sf::Text &addTxt, sf::Font &font)
 
     addTxt.setPosition(sf::Vector2f(0, window.getSize().y - 2 * addTxt.getGlobalBounds().height));
 }
+
+void setFirstLine(sf::RenderWindow &window, sf::RectangleShape &line, sf::Sprite &calendarSpr)
+{
+    line.setFillColor(sf::Color::Black);
+    line.setSize(sf::Vector2f(window.getSize().x, 4));
+    line.setPosition(sf::Vector2f(0, calendarSpr.getGlobalBounds().height + 20));
+}
+

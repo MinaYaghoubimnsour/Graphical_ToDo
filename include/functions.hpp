@@ -9,6 +9,7 @@
 
 void setTime(sf::Text &, sf::Font &, sf::Sprite &);
 void partOfAddText(sf::RenderWindow &, sf::Text &, sf::Font &);
+void setFirstLine(sf::RenderWindow &, sf::RectangleShape &, sf::Sprite &);
 
 
 #endif // FUNCTIOS_HPP

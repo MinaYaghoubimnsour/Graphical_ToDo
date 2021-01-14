@@ -36,6 +36,10 @@ int main()
   partOfAddText(window, addTxt, font);
 
    vector <task> tasks;
+   vector<sf::RectangleShape> rect;
+   vector<sf::Text> taskName;
+   sf::RectangleShape line;
+   setFirstLine(window, line, calendarSpr);
    string s,nameOfTask;
   while (window.isOpen())
   {
@@ -95,6 +99,14 @@ textMessage.setString(s);
           }
  task task1(nameOfTask);
           tasks.push_back(task1);
+  sf::Text taskName1;
+          taskName1.setFont(font);
+          taskName1.setString(nameOfTask);
+          taskName.push_back(taskName1);
+          sf::RectangleShape rectangle;
+          rectangle.setFillColor(sf::Color::Black);
+          rectangle.setSize(sf::Vector2f(window.getSize().x, 4));
+          rect.push_back(rectangle);
          
         }
       }
@@ -107,6 +119,22 @@ textMessage.setString(s);
     window.draw(calendarSpr);   // draw calendar icon
     window.draw(timeTxt);       // draw date and time
     window.draw(addTxt);        //draw +add task at end of the window
+    if (tasks.size() != 0)
+    {
+      taskName[0].setString(tasks[0].get_task_name());
+      taskName[0].setPosition(sf::Vector2f(70, line.getPosition().y + 10));
+      rect[0].setPosition(sf::Vector2f(0, taskName[0].getPosition().y + 60));
+      window.draw(taskName[0]);
+      window.draw(rect[0]);
+    }
+    for (size_t i = 1; i < tasks.size(); i++)
+    {
+      taskName[i].setString(tasks[i].get_task_name());
+      taskName[i].setPosition(sf::Vector2f(70, rect[i - 1].getPosition().y + 10));
+      rect[i].setPosition(sf::Vector2f(0, taskName[i].getPosition().y + 60));
+      window.draw(taskName[i]);
+      window.draw(rect[i]);
+    }
     window.display();           // display window
   }
   return 0;
