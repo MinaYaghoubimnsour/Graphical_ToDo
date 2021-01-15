@@ -11,8 +11,9 @@ public:
     task(std::string);
     void set_task_name(std::string);
     // void set_favorite(std::string);
-    // void set_isCompleted(bool);
+    void set_isCompleted(bool);
     std::string get_task_name();
+    bool& get_isCompleted();
     // std::string get_favorite();
     // bool get_isCompleted();
     // void print();

@@ -68,7 +68,7 @@ int main()
       {
         window.close();
       }
-      if (event.type == sf::Event::MouseButtonReleased)
+      if (event.type == sf::Event::MouseButtonPressed)
       {
         if (event.key.code == sf::Mouse::Left && sf::Mouse::getPosition(window).x >= addTxt.getPosition().x &&
             sf::Mouse::getPosition(window).x <= addTxt.getPosition().x + addTxt.getGlobalBounds().width &&
@@ -121,6 +121,20 @@ int main()
           rect.push_back(rectangle);
         }
       }
+      if (event.type == sf::Event::EventType::MouseButtonPressed)
+      {
+        for (size_t i = 0; i < tasks.size(); i++)
+        {
+          if (event.key.code == sf::Mouse::Left && sf::Mouse::getPosition(window).x >= tasks[i].get_sprite().getPosition().x &&
+              sf::Mouse::getPosition(window).x <= tasks[i].get_sprite().getPosition().x + tasks[i].get_sprite().getGlobalBounds().width &&
+              sf::Mouse::getPosition(window).y >= tasks[i].get_sprite().getPosition().y &&
+              sf::Mouse::getPosition(window).y <= tasks[i].get_sprite().getPosition().y + tasks[i].get_sprite().getGlobalBounds().height)
+          {
+            // cout << "i ->" << i << endl;
+            tasks[i].set_isCompleted(!tasks[i].get_isCompleted());
+          }
+        }
+      }
     }
     window.clear();
     window.draw(backgroundSpr); // draw picture of background
@@ -130,7 +144,14 @@ int main()
 
     for (size_t i = 0; i < tasks.size(); i++)
     {
-      tasks[i].get_texture().loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo/circle.png");
+      if (tasks[i].get_isCompleted())
+      {
+        tasks[i].get_texture().loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git3/Graphical_ToDo/checkmark.png");
+      }
+      else
+      {
+        tasks[i].get_texture().loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo/circle.png");
+      }
     }
     for (size_t i = 0; i < tasks.size(); i++)
     {
@@ -141,7 +162,7 @@ int main()
     {
       tasks[0].get_sprite().setPosition(sf::Vector2f(10, line.getPosition().y + 10));
       taskName[0].setString(tasks[0].get_task_name());
-      taskName[0].setPosition(sf::Vector2f(100, line.getPosition().y + 10));
+      taskName[0].setPosition(sf::Vector2f(70, line.getPosition().y + 10));
       rect[0].setPosition(sf::Vector2f(0, taskName[0].getPosition().y + 60));
       window.draw(taskName[0]);
       window.draw(tasks[0].get_sprite());
@@ -151,7 +172,7 @@ int main()
     {
       tasks[i].get_sprite().setPosition(sf::Vector2f(10, rect[i - 1].getPosition().y + 10));
       taskName[i].setString(tasks[i].get_task_name());
-      taskName[i].setPosition(sf::Vector2f(100, rect[i - 1].getPosition().y + 10));
+      taskName[i].setPosition(sf::Vector2f(70, rect[i - 1].getPosition().y + 10));
       rect[i].setPosition(sf::Vector2f(0, taskName[i].getPosition().y + 60));
       window.draw(taskName[i]);
       window.draw(tasks[i].get_sprite());

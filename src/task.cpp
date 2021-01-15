@@ -28,10 +28,10 @@ void task::set_task_name(string n)
 //     throw invalid_argument("favorite must be \"y\" or \"n\" !");
 //   }
 // }
-// void task::set_isCompleted(bool c)
-// {
-//   isCompleted = c;
-// }
+void task::set_isCompleted(bool c)
+{
+  isCompleted = c;
+}
 string task::get_task_name()
 {
   return task_name;
@@ -42,10 +42,6 @@ string task::get_task_name()
 //   return favorite;
 // }
 //
-// bool task::get_isCompleted()
-// {
-//   return isCompleted;
-// }
 
 // void task::print()
 // {
@@ -62,4 +58,9 @@ sf::Sprite &task::get_sprite()
 sf::Texture &task::get_texture()
 {
   return tex;
+}
+
+bool &task::get_isCompleted()
+{
+  return isCompleted;
 }
