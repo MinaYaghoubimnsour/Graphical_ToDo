@@ -155,27 +155,39 @@ int main()
     }
     for (size_t i = 0; i < tasks.size(); i++)
     {
-      tasks[i].get_sprite().setTexture(tasks[i].get_texture());
+      tasks[i].get_trashTexture().loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git3/Graphical_ToDo/trash.png");
     }
 
+    for (size_t i = 0; i < tasks.size(); i++)
+    {
+      tasks[i].get_sprite().setTexture(tasks[i].get_texture());
+    }
+    for (size_t i = 0; i < tasks.size(); i++)
+    {
+      tasks[i].get_trashSprite().setTexture(tasks[i].get_trashTexture());
+    }
     if (!tasks.empty())
     {
       tasks[0].get_sprite().setPosition(sf::Vector2f(10, line.getPosition().y + 10));
+      tasks[0].get_trashSprite().setPosition(sf::Vector2f(window.getSize().x - 50, line.getPosition().y + 10));
       taskName[0].setString(tasks[0].get_task_name());
       taskName[0].setPosition(sf::Vector2f(70, line.getPosition().y + 10));
       rect[0].setPosition(sf::Vector2f(0, taskName[0].getPosition().y + 60));
       window.draw(taskName[0]);
       window.draw(tasks[0].get_sprite());
+      window.draw(tasks[0].get_trashSprite());
       window.draw(rect[0]);
     }
     for (size_t i = 1; i < tasks.size(); i++)
     {
+      tasks[i].get_trashSprite().setPosition(sf::Vector2f(window.getSize().x - 50,  rect[i - 1].getPosition().y + 10));
       tasks[i].get_sprite().setPosition(sf::Vector2f(10, rect[i - 1].getPosition().y + 10));
       taskName[i].setString(tasks[i].get_task_name());
       taskName[i].setPosition(sf::Vector2f(70, rect[i - 1].getPosition().y + 10));
       rect[i].setPosition(sf::Vector2f(0, taskName[i].getPosition().y + 60));
       window.draw(taskName[i]);
       window.draw(tasks[i].get_sprite());
+      window.draw(tasks[i].get_trashSprite());
       window.draw(rect[i]);
     }
     window.display(); // display window

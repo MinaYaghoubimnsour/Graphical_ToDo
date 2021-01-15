@@ -64,3 +64,12 @@ bool &task::get_isCompleted()
 {
   return isCompleted;
 }
+
+sf::Sprite &task::get_trashSprite()
+{
+  return trashSp;
+}
+sf::Texture &task::get_trashTexture()
+{
+  return trash;
+}

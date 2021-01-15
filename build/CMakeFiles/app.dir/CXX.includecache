@@ -6,6 +6,16 @@
 
 #IncludeRegexTransform: 
 
+../include/functions.hpp
+SFML/Graphics.hpp
+../include/SFML/Graphics.hpp
+SFML/Window.hpp
+-
+SFML/System.hpp
+-
+iostream
+-
+
 ../include/task.hpp
 iostream
 -
@@ -16,19 +26,15 @@ vector
 SFML/Graphics.hpp
 -
 
-/mnt/c/Users/Parsian.system/Desktop/git3/Graphical_ToDo/src/task.cpp
+/mnt/c/Users/Parsian.system/Desktop/git3/Graphical_ToDo/src/main.cpp
 iostream
 -
-string
+chrono
 -
-vector
+ctime
 -
-iomanip
--
-cstdlib
--
-time.h
--
+functions.hpp
+/mnt/c/Users/Parsian.system/Desktop/git3/Graphical_ToDo/src/functions.hpp
 task.hpp
 /mnt/c/Users/Parsian.system/Desktop/git3/Graphical_ToDo/src/task.hpp
 
