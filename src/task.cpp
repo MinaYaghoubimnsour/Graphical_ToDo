@@ -8,7 +8,7 @@
 //extern int maxSizeOfTaskName;
 using namespace std;
 //extern bool isRepeated(vector<task>, int);
-task::task(string n):task_name(n)
+task::task(string n) : task_name(n)
 {
   cout << "constructor :" << task_name << endl;
 }
@@ -53,3 +53,13 @@ string task::get_task_name()
 //     << priority << setw(4) << left << favorite << setw(4) << left
 //     << ID << endl;
 // }
+
+sf::Sprite &task::get_sprite()
+{
+  return sp;
+}
+
+sf::Texture &task::get_texture()
+{
+  return tex;
+}

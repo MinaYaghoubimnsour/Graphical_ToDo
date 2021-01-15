@@ -1,13 +1,23 @@
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include <vector>
+#include <chrono>
+#include <ctime>
 #include "functions.hpp"
 #include "task.hpp"
 using namespace std;
+// struct shape
+// {
+//   sf::Texture circleTxt;
+//   sf::Sprite circleSpr;
+// };
 
 int main()
 {
-  
+  //*******************************
+  vector<task> tasks;
+  vector<sf::RectangleShape> rect;
+  vector<sf::Text> taskName;
+  vector<sf::Texture> circleTexture;
+  vector<sf::Sprite> circleSprite;
   //object of class RenderWindow and Event
 
   sf::RenderWindow window(sf::VideoMode(1402, 789), "To Do");
@@ -16,31 +26,40 @@ int main()
   // background
   sf::Texture backgroundTexture;
   sf::Sprite backgroundSpr;
-  backgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background.jpg");
+  backgroundTexture.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo/background.jpg");
   backgroundSpr.setTexture(backgroundTexture);
-
   //icon calendar
+
   sf::Texture calendarTexture;
   sf::Sprite calendarSpr;
-  calendarTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/schedule.png");
+  calendarTexture.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo/schedule.png");
   calendarSpr.setTexture(calendarTexture);
   calendarSpr.setPosition(sf::Vector2f(10, 0));
 
   //date and time
+
   sf::Text timeTxt;
   sf::Font font;
-  font.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/blackjack.otf");
+  font.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo/blackjack.otf");
   setTime(timeTxt, font, calendarSpr);
+
+  //A line after date and time
+  sf::RectangleShape line;
+  setFirstLine(window, line, calendarSpr);
   //a part for add a task
   sf::Text addTxt;
   partOfAddText(window, addTxt, font);
+  // print name of task
+  sf::Text nameTxt;
+  sf::Font nameFont;
+  nameFont.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo/blackjack.otf");
+  nameTxt.setFont(nameFont);
+  nameTxt.setFillColor(sf::Color::Black);
 
-   vector <task> tasks;
-   vector<sf::RectangleShape> rect;
-   vector<sf::Text> taskName;
-   sf::RectangleShape line;
-   setFirstLine(window, line, calendarSpr);
-   string s,nameOfTask;
+  // fillTaskNameAndRectVectors(window, font, tasks, taskName, rect);
+
+  string s, nameOfTask = "";
+
   while (window.isOpen())
   {
     while (window.pollEvent(event))
@@ -49,7 +68,7 @@ int main()
       {
         window.close();
       }
-if (event.type == sf::Event::MouseButtonReleased)
+      if (event.type == sf::Event::MouseButtonReleased)
       {
         if (event.key.code == sf::Mouse::Left && sf::Mouse::getPosition(window).x >= addTxt.getPosition().x &&
             sf::Mouse::getPosition(window).x <= addTxt.getPosition().x + addTxt.getGlobalBounds().width &&
@@ -60,7 +79,7 @@ if (event.type == sf::Event::MouseButtonReleased)
           nameOfTask = "";
           sf::RenderWindow window2(sf::VideoMode(600, 100), "Add Task : ", sf::Style::Titlebar | sf::Style::Close);
           sf::Font window2Font;
-          window2Font.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/blackjack.otf");
+          window2Font.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo/blackjack.otf");
           sf::Text textMessage;
           textMessage.setFillColor(sf::Color::White);
           textMessage.setFont(window2Font);
@@ -69,12 +88,7 @@ if (event.type == sf::Event::MouseButtonReleased)
           while (window2.isOpen())
           {
             sf::Event event2;
-            sf::Texture ok;
-            ok.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/ok.png");
             sf::Sprite okSprite;
-            okSprite.setTexture(ok);
-            okSprite.setOrigin(sf::Vector2f(okSprite.getGlobalBounds().width, okSprite.getGlobalBounds().height));
-            okSprite.setPosition(sf::Vector2f(window2.getSize().x, window2.getSize().y));
             while (window2.pollEvent(event2))
             {
               if (event2.type == sf::Event::Closed)
@@ -90,16 +104,14 @@ if (event.type == sf::Event::MouseButtonReleased)
                 }
               }
             }
-textMessage.setString(s);
+            textMessage.setString(s);
             window2.clear(sf::Color::Black);
             window2.draw(textMessage);
-            window2.draw(okSprite);
             window2.display();
-
           }
- task task1(nameOfTask);
+          task task1(nameOfTask);
           tasks.push_back(task1);
-  sf::Text taskName1;
+          sf::Text taskName1;
           taskName1.setFont(font);
           taskName1.setString(nameOfTask);
           taskName.push_back(taskName1);
@@ -107,35 +119,45 @@ textMessage.setString(s);
           rectangle.setFillColor(sf::Color::Black);
           rectangle.setSize(sf::Vector2f(window.getSize().x, 4));
           rect.push_back(rectangle);
-         
         }
       }
-
-
-
-
     }
+    window.clear();
     window.draw(backgroundSpr); // draw picture of background
     window.draw(calendarSpr);   // draw calendar icon
     window.draw(timeTxt);       // draw date and time
-    window.draw(addTxt);        //draw +add task at end of the window
-    if (tasks.size() != 0)
+    window.draw(addTxt);        // draw + add a task
+
+    for (size_t i = 0; i < tasks.size(); i++)
     {
+      tasks[i].get_texture().loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git2/Graphical_ToDo/circle.png");
+    }
+    for (size_t i = 0; i < tasks.size(); i++)
+    {
+      tasks[i].get_sprite().setTexture(tasks[i].get_texture());
+    }
+
+    if (!tasks.empty())
+    {
+      tasks[0].get_sprite().setPosition(sf::Vector2f(10, line.getPosition().y + 10));
       taskName[0].setString(tasks[0].get_task_name());
-      taskName[0].setPosition(sf::Vector2f(70, line.getPosition().y + 10));
+      taskName[0].setPosition(sf::Vector2f(100, line.getPosition().y + 10));
       rect[0].setPosition(sf::Vector2f(0, taskName[0].getPosition().y + 60));
       window.draw(taskName[0]);
+      window.draw(tasks[0].get_sprite());
       window.draw(rect[0]);
     }
     for (size_t i = 1; i < tasks.size(); i++)
     {
+      tasks[i].get_sprite().setPosition(sf::Vector2f(10, rect[i - 1].getPosition().y + 10));
       taskName[i].setString(tasks[i].get_task_name());
-      taskName[i].setPosition(sf::Vector2f(70, rect[i - 1].getPosition().y + 10));
+      taskName[i].setPosition(sf::Vector2f(100, rect[i - 1].getPosition().y + 10));
       rect[i].setPosition(sf::Vector2f(0, taskName[i].getPosition().y + 60));
       window.draw(taskName[i]);
+      window.draw(tasks[i].get_sprite());
       window.draw(rect[i]);
     }
-    window.display();           // display window
+    window.display(); // display window
   }
   return 0;
 }
