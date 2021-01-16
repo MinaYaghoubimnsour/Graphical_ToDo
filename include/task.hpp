@@ -18,15 +18,15 @@ public:
     // bool get_isCompleted();
     // void print();
 
-    sf::Sprite &get_sprite();
-    sf::Texture &get_texture();
+    sf::Sprite &get_circleSprite();
+    sf::Texture &get_circleTexture();
     sf::Sprite &get_trashSprite();
     sf::Texture &get_trashTexture();
 private:
-    sf::Texture tex;
-    sf::Sprite sp;
+    sf::Texture circle;
+    sf::Sprite circleSpr;
     sf::Texture trash;
-    sf::Sprite trashSp;
+    sf::Sprite trashSpr;
     std::string task_name;
     bool favorite = false;
     bool isCompleted = false;

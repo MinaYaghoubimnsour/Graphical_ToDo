@@ -50,14 +50,14 @@ string task::get_task_name()
 //     << ID << endl;
 // }
 
-sf::Sprite &task::get_sprite()
+sf::Sprite &task::get_circleSprite()
 {
-  return sp;
+  return circleSpr;
 }
 
-sf::Texture &task::get_texture()
+sf::Texture &task::get_circleTexture()
 {
-  return tex;
+  return circle;
 }
 
 bool &task::get_isCompleted()
@@ -67,7 +67,7 @@ bool &task::get_isCompleted()
 
 sf::Sprite &task::get_trashSprite()
 {
-  return trashSp;
+  return trashSpr;
 }
 sf::Texture &task::get_trashTexture()
 {
