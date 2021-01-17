@@ -17,17 +17,10 @@ void task::set_task_name(string n)
   task_name = n;
 }
 
-// void task::set_favorite(string f)
-// {
-//   if(f == "y" || f == "n")
-//   {
-//     favorite = f;
-//   }
-//   else
-//   {
-//     throw invalid_argument("favorite must be \"y\" or \"n\" !");
-//   }
-// }
+void task::set_favorite(bool b)
+{
+  favorite = b;
+}
 void task::set_isCompleted(bool c)
 {
   isCompleted = c;
@@ -36,12 +29,12 @@ string task::get_task_name()
 {
   return task_name;
 }
-//
-// string task::get_favorite()
-// {
-//   return favorite;
-// }
-//
+
+bool task::get_favorite()
+{
+  return favorite;
+}
+
 
 // void task::print()
 // {
@@ -58,6 +51,30 @@ sf::Sprite &task::get_circleSprite()
 sf::Texture &task::get_circleTexture()
 {
   return circle;
+}
+sf::Texture task::get_starTexture()
+{
+  return star;
+}
+sf::Sprite task::get_starSprite()
+{
+  return starSpr;
+}
+void task::loadStarTexture()
+{
+  if(!favorite)
+    star.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/star.png");
+  else
+    star.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/yellow_star.png");
+
+}
+void task::setTextureStarSpr()
+{
+  starSpr.setTexture(star);
+}
+void task::setPositionStarSpr(float x, float y)
+{
+  starSpr.setPosition(sf::Vector2f(x, y));
 }
 
 bool &task::get_isCompleted()

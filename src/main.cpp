@@ -149,13 +149,26 @@ int main()
           }
         }
       }
+      if (event.type == sf::Event::EventType::MouseButtonPressed)
+      {
+        for (size_t i = 0; i < tasks.size(); i++)
+        {
+          if (event.key.code == sf::Mouse::Left && sf::Mouse::getPosition(window).x >= tasks[i].get_starSprite().getPosition().x &&
+              sf::Mouse::getPosition(window).x <= tasks[i].get_starSprite().getPosition().x + tasks[i].get_starSprite().getGlobalBounds().width &&
+              sf::Mouse::getPosition(window).y >= tasks[i].get_starSprite().getPosition().y &&
+              sf::Mouse::getPosition(window).y <= tasks[i].get_starSprite().getPosition().y + tasks[i].get_starSprite().getGlobalBounds().height)
+          {
+            tasks[i].set_favorite(!tasks[i].get_favorite());
+          }
+        }
+      }
     }
     window.clear();
     window.draw(backgroundSpr); // draw picture of background
     window.draw(calendarSpr);   // draw calendar icon
     window.draw(timeTxt);       // draw date and time
     window.draw(addTxt);        // draw + add a task
-
+    // circle icon of every task that shows complete or incomplete
     for (size_t i = 0; i < tasks.size(); i++)
     {
       if (tasks[i].get_isCompleted())
@@ -169,39 +182,52 @@ int main()
     }
     for (size_t i = 0; i < tasks.size(); i++)
     {
-      tasks[i].get_trashTexture().loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/trash.png");
+      tasks[i].get_circleSprite().setTexture(tasks[i].get_circleTexture());
     }
-
+    // trash icon
     for (size_t i = 0; i < tasks.size(); i++)
     {
-      tasks[i].get_circleSprite().setTexture(tasks[i].get_circleTexture());
+      tasks[i].get_trashTexture().loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/trash.png");
     }
     for (size_t i = 0; i < tasks.size(); i++)
     {
       tasks[i].get_trashSprite().setTexture(tasks[i].get_trashTexture());
     }
+    for (size_t i = 0; i < tasks.size(); i++)
+    {
+      tasks[i].loadStarTexture();
+    }
+    for (size_t i = 0; i < tasks.size(); i++) {
+      tasks[i].setTextureStarSpr();
+    }
     if (!tasks.empty())
     {
       tasks[0].get_circleSprite().setPosition(sf::Vector2f(10, line.getPosition().y + 10));
       tasks[0].get_trashSprite().setPosition(sf::Vector2f(window.getSize().x - 50, line.getPosition().y + 10));
+      tasks[0].setPositionStarSpr(window.getSize().x - 65 - tasks[0].get_trashSprite(). getGlobalBounds(). width,
+        line.getPosition().y + 10);
       taskName[0].setString(tasks[0].get_task_name());
       taskName[0].setPosition(sf::Vector2f(70, line.getPosition().y + 10));
       rect[0].setPosition(sf::Vector2f(0, taskName[0].getPosition().y + 60));
       window.draw(taskName[0]);
       window.draw(tasks[0].get_circleSprite());
       window.draw(tasks[0].get_trashSprite());
+      window.draw(tasks[0].get_starSprite());
       window.draw(rect[0]);
     }
     for (size_t i = 1; i < tasks.size(); i++)
     {
       tasks[i].get_trashSprite().setPosition(sf::Vector2f(window.getSize().x - 50,  rect[i - 1].getPosition().y + 10));
       tasks[i].get_circleSprite().setPosition(sf::Vector2f(10, rect[i - 1].getPosition().y + 10));
+      tasks[i].setPositionStarSpr(window.getSize().x - 65 - tasks[i].get_trashSprite(). getGlobalBounds(). width,
+        rect[i - 1].getPosition().y + 10);
       taskName[i].setString(tasks[i].get_task_name());
       taskName[i].setPosition(sf::Vector2f(70, rect[i - 1].getPosition().y + 10));
       rect[i].setPosition(sf::Vector2f(0, taskName[i].getPosition().y + 60));
       window.draw(taskName[i]);
       window.draw(tasks[i].get_circleSprite());
       window.draw(tasks[i].get_trashSprite());
+      window.draw(tasks[i].get_starSprite());
       window.draw(rect[i]);
     }
     window.display(); // display window

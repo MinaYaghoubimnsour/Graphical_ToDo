@@ -46,8 +46,8 @@ void manage_window3(sf::RenderWindow & window3, vector<task> & tasks, sf::Font &
   yes.setString("YES");
   no.setString("NO");
   message.setFillColor(sf::Color(250, 150, 200));
-  yes.setFillColor(sf::Color::Green);
-  no.setFillColor(sf::Color::Red);
+  yes.setFillColor(sf::Color(250, 150, 200));
+  no.setFillColor(sf::Color(250, 150, 200));
   yes.setOrigin(sf::Vector2f(yes.getGlobalBounds().width, 0));
   yes.setPosition(sf::Vector2f(window3.getSize().x/2 - 20 , 250));
   no.setPosition(sf::Vector2f(window3.getSize().x/2 + 20 , 250));
