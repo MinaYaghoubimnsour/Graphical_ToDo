@@ -1,6 +1,6 @@
 
-#ifndef FUNCTIOS_HPP
-#define FUNCTIOS_HPP
+#ifndef FUNCTIONS_HPP
+#define FUNCTIONS_HPP
 #include "SFML/Graphics.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -12,4 +12,4 @@ void partOfAddText(sf::RenderWindow &, sf::Text &, sf::Font &);
 void setFirstLine(sf::RenderWindow &, sf::RectangleShape &, sf::Sprite &);
 void manage_window3(sf::RenderWindow &, std::vector<task> &, sf::Font &, int);
 
-#endif // FUNCTIOS_HPP
+#endif // FUNCTIONS_HPP

@@ -30,11 +30,11 @@ vector
 SFML/Graphics.hpp
 -
 
-/home/fn/exercise5_991/Graphical_ToDo/src/functions.cpp
+/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/src/functions.cpp
 functions.hpp
-/home/fn/exercise5_991/Graphical_ToDo/src/functions.hpp
+/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/src/functions.hpp
 
-/home/fn/exercise5_991/Graphical_ToDo/src/main.cpp
+/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/src/main.cpp
 iostream
 -
 chrono
@@ -42,11 +42,11 @@ chrono
 ctime
 -
 functions.hpp
-/home/fn/exercise5_991/Graphical_ToDo/src/functions.hpp
+/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/src/functions.hpp
 task.hpp
-/home/fn/exercise5_991/Graphical_ToDo/src/task.hpp
+/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/src/task.hpp
 
-/home/fn/exercise5_991/Graphical_ToDo/src/task.cpp
+/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/src/task.cpp
 iostream
 -
 string
@@ -60,5 +60,5 @@ cstdlib
 time.h
 -
 task.hpp
-/home/fn/exercise5_991/Graphical_ToDo/src/task.hpp
+/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/src/task.hpp
 

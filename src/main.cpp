@@ -26,13 +26,13 @@ int main()
   // background
   sf::Texture backgroundTexture;
   sf::Sprite backgroundSpr;
-  backgroundTexture.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/background.jpg");
+  backgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background.jpg");
   backgroundSpr.setTexture(backgroundTexture);
   //icon calendar
 
   sf::Texture calendarTexture;
   sf::Sprite calendarSpr;
-  calendarTexture.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/schedule.png");
+  calendarTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/schedule.png");
   calendarSpr.setTexture(calendarTexture);
   calendarSpr.setPosition(sf::Vector2f(10, 0));
 
@@ -40,7 +40,7 @@ int main()
 
   sf::Text timeTxt;
   sf::Font font;
-  font.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/blackjack.otf");
+  font.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/blackjack.otf");
   setTime(timeTxt, font, calendarSpr);
 
   //A line after date and time
@@ -52,7 +52,7 @@ int main()
   // print name of task
   sf::Text nameTxt;
   sf::Font nameFont;
-  nameFont.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/blackjack.otf");
+  nameFont.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/blackjack.otf");
   nameTxt.setFont(nameFont);
   nameTxt.setFillColor(sf::Color::Black);
 
@@ -79,7 +79,7 @@ int main()
           nameOfTask = "";
           sf::RenderWindow window2(sf::VideoMode(600, 100), "Add Task : ", sf::Style::Titlebar | sf::Style::Close);
           sf::Font window2Font;
-          window2Font.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/blackjack.otf");
+          window2Font.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/blackjack.otf");
           sf::Text textMessage;
           textMessage.setFillColor(sf::Color::White);
           textMessage.setFont(window2Font);
@@ -171,28 +171,22 @@ int main()
     // circle icon of every task that shows complete or incomplete
     for (size_t i = 0; i < tasks.size(); i++)
     {
-      if (tasks[i].get_isCompleted())
-      {
-        tasks[i].get_circleTexture().loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/checkmark.png");
-      }
-      else
-      {
-        tasks[i].get_circleTexture().loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/circle.png");
-      }
+      tasks[i].loadCircleTexture();
     }
     for (size_t i = 0; i < tasks.size(); i++)
     {
-      tasks[i].get_circleSprite().setTexture(tasks[i].get_circleTexture());
+      tasks[i].setTextureCircleSpr();
     }
     // trash icon
     for (size_t i = 0; i < tasks.size(); i++)
     {
-      tasks[i].get_trashTexture().loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/trash.png");
+      tasks[i].loadTrashTexture();
     }
     for (size_t i = 0; i < tasks.size(); i++)
     {
-      tasks[i].get_trashSprite().setTexture(tasks[i].get_trashTexture());
+      tasks[i].setTextureTrashSpr();
     }
+    // star icon of every task that shows task is favorite  or not.
     for (size_t i = 0; i < tasks.size(); i++)
     {
       tasks[i].loadStarTexture();
@@ -202,13 +196,13 @@ int main()
     }
     if (!tasks.empty())
     {
-      tasks[0].get_circleSprite().setPosition(sf::Vector2f(10, line.getPosition().y + 10));
-      tasks[0].get_trashSprite().setPosition(sf::Vector2f(window.getSize().x - 50, line.getPosition().y + 10));
-      tasks[0].setPositionStarSpr(window.getSize().x - 65 - tasks[0].get_trashSprite(). getGlobalBounds(). width,
-        line.getPosition().y + 10);
       taskName[0].setString(tasks[0].get_task_name());
       taskName[0].setPosition(sf::Vector2f(70, line.getPosition().y + 10));
       rect[0].setPosition(sf::Vector2f(0, taskName[0].getPosition().y + 60));
+      tasks[0].setPositionCircleSpr(10, line.getPosition().y + 10);
+      tasks[0].setPositionTrashSpr(window.getSize().x - 50, line.getPosition().y + 10);
+      tasks[0].setPositionStarSpr(window.getSize().x - 65 - tasks[0].get_trashSprite(). getGlobalBounds(). width,
+        line.getPosition().y + 10);
       window.draw(taskName[0]);
       window.draw(tasks[0].get_circleSprite());
       window.draw(tasks[0].get_trashSprite());
@@ -217,13 +211,13 @@ int main()
     }
     for (size_t i = 1; i < tasks.size(); i++)
     {
-      tasks[i].get_trashSprite().setPosition(sf::Vector2f(window.getSize().x - 50,  rect[i - 1].getPosition().y + 10));
-      tasks[i].get_circleSprite().setPosition(sf::Vector2f(10, rect[i - 1].getPosition().y + 10));
-      tasks[i].setPositionStarSpr(window.getSize().x - 65 - tasks[i].get_trashSprite(). getGlobalBounds(). width,
-        rect[i - 1].getPosition().y + 10);
       taskName[i].setString(tasks[i].get_task_name());
       taskName[i].setPosition(sf::Vector2f(70, rect[i - 1].getPosition().y + 10));
       rect[i].setPosition(sf::Vector2f(0, taskName[i].getPosition().y + 60));
+      tasks[i].setPositionCircleSpr(10, rect[i-1].getPosition().y + 10);
+      tasks[i].setPositionTrashSpr(window.getSize().x - 50, rect[i-1].getPosition().y + 10);
+      tasks[i].setPositionStarSpr(window.getSize().x - 65 - tasks[i].get_trashSprite(). getGlobalBounds(). width,
+        rect[i - 1].getPosition().y + 10);
       window.draw(taskName[i]);
       window.draw(tasks[i].get_circleSprite());
       window.draw(tasks[i].get_trashSprite());

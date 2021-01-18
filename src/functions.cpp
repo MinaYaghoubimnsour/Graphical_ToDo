@@ -32,7 +32,7 @@ void manage_window3(sf::RenderWindow & window3, vector<task> & tasks, sf::Font &
 {
   sf::Texture window3BackgroundTexture;
   sf::Sprite window3BackgroundSprite;
-  window3BackgroundTexture.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/background_window3.jpg");
+  window3BackgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background_window3.jpg");
   window3BackgroundSprite.setTexture(window3BackgroundTexture);
   sf::Event event;
   sf::Text message, yes, no;
