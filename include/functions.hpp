@@ -11,5 +11,7 @@ void setTime(sf::Text &, sf::Font &, sf::Sprite &);
 void partOfAddText(sf::RenderWindow &, sf::Text &, sf::Font &);
 void setFirstLine(sf::RenderWindow &, sf::RectangleShape &, sf::Sprite &);
 void manage_window3(sf::RenderWindow &, std::vector<task> &, sf::Font &, int);
+void manage_window4(sf::RenderWindow & , std::vector<task> & , sf::Font & , int );
+
 
 #endif // FUNCTIONS_HPP

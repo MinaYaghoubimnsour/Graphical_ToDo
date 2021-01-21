@@ -90,3 +90,91 @@ void manage_window3(sf::RenderWindow & window3, vector<task> & tasks, sf::Font &
     window3.display();
   }
 }
+
+
+void manage_window4(sf::RenderWindow & window4, vector<task> & tasks, sf::Font & font, int i)
+{
+  sf::Texture window4BackgroundTexture;
+  sf::Sprite window4BackgroundSprite;
+  window4BackgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background_window3.jpg");
+  window4BackgroundSprite.setTexture(window4BackgroundTexture);
+  sf::Event event;
+  sf::Text message, ok, cancel;
+  message.setFont(font);
+  ok.setFont(font);
+  cancel.setFont(font);
+
+  ok.setString("OK");
+  cancel.setString("CANCEL");
+
+  string s = "Please enter new name of task : \n";
+  string nameOfTask = "";
+  message.setString(s);
+
+  cancel.setOrigin(sf::Vector2f(cancel.getGlobalBounds().width, 0));
+  cancel.setPosition(sf::Vector2f(window4.getSize().x/2 - 20 , 250));
+  ok.setPosition(sf::Vector2f(window4.getSize().x/2 + 20 , 250));
+
+  while(window4.isOpen())
+  {
+    while(window4.pollEvent(event))
+    {
+      // if user click on the close button , window4 will be closed
+      if(event.type == sf::Event::EventType::Closed)
+      {
+        window4.close();
+      }
+      if (event.type == sf::Event::TextEntered)
+      {
+        if (event.text.unicode < 128)
+        {
+          if(event.text.unicode == 8)
+         {
+           s.erase(s.begin() + s.size() - 1);
+           nameOfTask.erase(nameOfTask.begin() + nameOfTask.size() - 1);
+         }
+         else
+        {
+         s += static_cast<char>(event.text.unicode);
+         nameOfTask += static_cast<char>(event.text.unicode);
+
+        }
+
+        }
+      }
+      // if user click on the ok , task name will be changed and window4 will be closed
+      if (event.type == sf::Event::EventType::MouseButtonPressed)
+      {
+         if (event.key.code == sf::Mouse::Left && sf::Mouse::getPosition(window4).x >= ok.getPosition().x &&
+           sf::Mouse::getPosition(window4).x <= ok.getPosition().x + ok.getGlobalBounds().width &&
+           sf::Mouse::getPosition(window4).y >= ok.getPosition().y &&
+           sf::Mouse::getPosition(window4).y <= ok.getPosition().y + ok.getGlobalBounds().height)
+         {
+           
+           tasks[i].set_task_name(nameOfTask);
+           window4.close();
+         }
+       }
+       // if user click on the cancel , only window4 will be closed
+       if (event.type == sf::Event::EventType::MouseButtonPressed)
+       {
+          if (event.key.code == sf::Mouse::Left && sf::Mouse::getPosition(window4).x >= cancel.getPosition().x - cancel.getGlobalBounds().width &&
+            sf::Mouse::getPosition(window4).x <= cancel.getPosition().x &&
+            sf::Mouse::getPosition(window4).y >= cancel.getPosition().y &&
+            sf::Mouse::getPosition(window4).y <= cancel.getPosition().y + cancel.getGlobalBounds().height)
+          {
+            window4.close();
+          }
+        }
+
+    } // end of while(window4.pollEvent(event))
+    message.setString(s);
+    window4.clear();
+    window4.draw(window4BackgroundSprite);
+    window4.draw(message);
+    window4.draw(ok);
+    window4.draw(cancel);
+    window4.display();
+
+  } // end of while(window4.isOpen())
+}

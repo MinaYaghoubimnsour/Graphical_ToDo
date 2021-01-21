@@ -35,6 +35,12 @@ public:
     sf::Texture get_starTexture();
     sf::Sprite get_starSprite();
 
+    //member functions which relate to pencil icon
+    void loadPencilTexture();
+    void setTexturePencilSpr();
+    void setPositionPencilSpr(float, float);
+    sf::Texture get_PencilTexture();
+    sf::Sprite get_PencilSprite();
 
 private:
     std::string task_name;
@@ -46,5 +52,7 @@ private:
     sf::Sprite trashSpr;
     sf::Texture star;
     sf::Sprite starSpr;
+    sf::Texture pencil;
+    sf::Sprite pencilSpr;
 };
 #endif

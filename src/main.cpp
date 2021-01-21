@@ -4,11 +4,6 @@
 #include "functions.hpp"
 #include "task.hpp"
 using namespace std;
-// struct shape
-// {
-//   sf::Texture circleTxt;
-//   sf::Sprite circleSpr;
-// };
 
 int main()
 {
@@ -162,6 +157,24 @@ int main()
           }
         }
       }
+
+      if (event.type == sf::Event::EventType::MouseButtonPressed)
+      {
+        for (size_t i = 0; i < tasks.size(); i++)
+        {
+          if (event.key.code == sf::Mouse::Left && sf::Mouse::getPosition(window).x >= tasks[i].get_PencilSprite().getPosition().x &&
+              sf::Mouse::getPosition(window).x <= tasks[i].get_PencilSprite().getPosition().x + tasks[i].get_PencilSprite().getGlobalBounds().width &&
+              sf::Mouse::getPosition(window).y >= tasks[i].get_PencilSprite().getPosition().y &&
+              sf::Mouse::getPosition(window).y <= tasks[i].get_PencilSprite().getPosition().y + tasks[i].get_PencilSprite().getGlobalBounds().height)
+          {
+             sf::RenderWindow window4(sf::VideoMode(1100, 300),"Edit task : ") ;
+             manage_window4(window4, tasks, font, i);
+          }
+        }
+      }
+
+
+
     }
     window.clear();
     window.draw(backgroundSpr); // draw picture of background
@@ -191,9 +204,20 @@ int main()
     {
       tasks[i].loadStarTexture();
     }
-    for (size_t i = 0; i < tasks.size(); i++) {
+    for (size_t i = 0; i < tasks.size(); i++)
+    {
       tasks[i].setTextureStarSpr();
     }
+    // pencil icon
+    for (size_t i = 0; i < tasks.size(); i++)
+    {
+      tasks[i].loadPencilTexture();
+    }
+    for (size_t i = 0; i < tasks.size(); i++)
+    {
+      tasks[i].setTexturePencilSpr();
+    }
+
     if (!tasks.empty())
     {
       taskName[0].setString(tasks[0].get_task_name());
@@ -201,12 +225,15 @@ int main()
       rect[0].setPosition(sf::Vector2f(0, taskName[0].getPosition().y + 60));
       tasks[0].setPositionCircleSpr(10, line.getPosition().y + 10);
       tasks[0].setPositionTrashSpr(window.getSize().x - 50, line.getPosition().y + 10);
-      tasks[0].setPositionStarSpr(window.getSize().x - 65 - tasks[0].get_trashSprite(). getGlobalBounds(). width,
+      tasks[0].setPositionStarSpr(window.getSize().x - 70-tasks[0].get_PencilSprite().getGlobalBounds().width
+      - tasks[0].get_trashSprite(). getGlobalBounds(). width,line.getPosition().y + 10);
+      tasks[0].setPositionPencilSpr(window.getSize().x - 65 - tasks[0].get_trashSprite(). getGlobalBounds(). width,
         line.getPosition().y + 10);
       window.draw(taskName[0]);
       window.draw(tasks[0].get_circleSprite());
       window.draw(tasks[0].get_trashSprite());
       window.draw(tasks[0].get_starSprite());
+      window.draw(tasks[0].get_PencilSprite());
       window.draw(rect[0]);
     }
     for (size_t i = 1; i < tasks.size(); i++)
@@ -216,12 +243,15 @@ int main()
       rect[i].setPosition(sf::Vector2f(0, taskName[i].getPosition().y + 60));
       tasks[i].setPositionCircleSpr(10, rect[i-1].getPosition().y + 10);
       tasks[i].setPositionTrashSpr(window.getSize().x - 50, rect[i-1].getPosition().y + 10);
-      tasks[i].setPositionStarSpr(window.getSize().x - 65 - tasks[i].get_trashSprite(). getGlobalBounds(). width,
-        rect[i - 1].getPosition().y + 10);
+      tasks[i].setPositionStarSpr(window.getSize().x - 70-tasks[i].get_PencilSprite().getGlobalBounds().width
+      - tasks[i].get_trashSprite(). getGlobalBounds(). width,rect[i-1].getPosition().y + 10);
+      tasks[i].setPositionPencilSpr(window.getSize().x - 65 - tasks[i].get_trashSprite(). getGlobalBounds(). width,
+        rect[i-1].getPosition().y + 10);
       window.draw(taskName[i]);
       window.draw(tasks[i].get_circleSprite());
       window.draw(tasks[i].get_trashSprite());
       window.draw(tasks[i].get_starSprite());
+      window.draw(tasks[i].get_PencilSprite());
       window.draw(rect[i]);
     }
     window.display(); // display window

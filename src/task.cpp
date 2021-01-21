@@ -102,9 +102,9 @@ sf::Sprite task::get_trashSprite()
 void task::loadStarTexture()
 {
   if(!favorite)
-  star.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/star.png");
+  star.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/Star.png");
   else
-  star.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/yellow_star.png");
+  star.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/yellowStar.png");
 
 }
 
@@ -125,4 +125,27 @@ sf::Texture task::get_starTexture()
 sf::Sprite task::get_starSprite()
 {
   return starSpr;
+}
+
+
+//member functions which relate to pencil icon
+void task::loadPencilTexture()
+{
+  pencil.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/pencil .png");
+}
+void task::setTexturePencilSpr()
+{
+  pencilSpr.setTexture(pencil);
+}
+void task::setPositionPencilSpr(float x, float y)
+{
+  pencilSpr.setPosition(sf::Vector2f(x,y));
+}
+sf::Texture task::get_PencilTexture()
+{
+  return pencil;
+}
+sf::Sprite task::get_PencilSprite()
+{
+  return pencilSpr;
 }
