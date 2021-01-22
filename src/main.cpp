@@ -6,34 +6,38 @@
 using namespace std;
 
 int main()
-{
-  //*******************************
+{ //font
+  sf::Font font;
+  font.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/blackjack.otf");
+  //-----------------
   vector<task> tasks;
-  vector<sf::RectangleShape> rect;
   vector<sf::Text> taskName;
+  vector<sf::RectangleShape> rect;
+  //call ReadFromFile for reading information from file
+  ifstream file("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/file.txt", ios::in);
+  ReadFromFile(file, tasks, taskName, font, rect);
+  file.close();
+  //*******************************
   //object of class RenderWindow and Event
-
   sf::RenderWindow window(sf::VideoMode(1402, 789), "To Do");
   sf::Event event;
 
   // background
   sf::Texture backgroundTexture;
   sf::Sprite backgroundSpr;
-  backgroundTexture.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/background.jpg");
+  backgroundTexture.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/background.jpg");
   backgroundSpr.setTexture(backgroundTexture);
   //icon calendar
 
   sf::Texture calendarTexture;
   sf::Sprite calendarSpr;
-  calendarTexture.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/schedule.png");
+  calendarTexture.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/schedule.png");
   calendarSpr.setTexture(calendarTexture);
   calendarSpr.setPosition(sf::Vector2f(10, 0));
 
   //date and time
 
   sf::Text timeTxt;
-  sf::Font font;
-  font.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/blackjack.otf");
   setTime(timeTxt, font, calendarSpr);
 
   //A line after date and time
@@ -45,7 +49,7 @@ int main()
   // print name of task
   sf::Text nameTxt;
   sf::Font nameFont;
-  nameFont.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/blackjack.otf");
+  nameFont.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/blackjack.otf");
   nameTxt.setFont(nameFont);
   nameTxt.setFillColor(sf::Color::Black);
 
@@ -73,10 +77,10 @@ int main()
           sf::RenderWindow window2(sf::VideoMode(1150, 647), "Add Task : ", sf::Style::Titlebar | sf::Style::Close);
           sf::Texture background_window2;
           sf::Sprite background_window2_Sprite;
-          background_window2.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/background2.jpg");
+          background_window2.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/background2.jpg");
           background_window2_Sprite.setTexture(background_window2);
 
-          sf::Text textMessage, ok , cancel;
+          sf::Text textMessage, ok, cancel;
           textMessage.setFillColor(sf::Color::Black);
           ok.setFillColor(sf::Color::Black);
           cancel.setFillColor(sf::Color::Black);
@@ -95,8 +99,8 @@ int main()
           cancel.setString("CANCEL");
 
           cancel.setOrigin(sf::Vector2f(cancel.getGlobalBounds().width, 0));
-          cancel.setPosition(sf::Vector2f(window2.getSize().x/2 - 20 , 500));
-          ok.setPosition(sf::Vector2f(window2.getSize().x/2 + 20 , 500));
+          cancel.setPosition(sf::Vector2f(window2.getSize().x / 2 - 20, 500));
+          ok.setPosition(sf::Vector2f(window2.getSize().x / 2 + 20, 500));
 
           bool isOk = false;
           while (window2.isOpen())
@@ -105,63 +109,59 @@ int main()
 
             while (window2.pollEvent(event2))
             {
-              isOk=false;
+              isOk = false;
               if (event2.type == sf::Event::Closed)
               {
                 window2.close();
-                isOk=false;
+                isOk = false;
               }
               if (event2.type == sf::Event::TextEntered)
               {
                 if (event2.text.unicode < 128)
                 {
-                   if(event2.text.unicode == 8)
-                   {
-                   if( nameOfTask.size()!=0)
-                   {
+                  if (event2.text.unicode == 8)
+                  {
+                    if (nameOfTask.size() != 0)
+                    {
                       s.erase(s.begin() + s.size() - 1);
                       nameOfTask.erase(nameOfTask.begin() + nameOfTask.size() - 1);
-                   }
-                 }
-                 else if(nameOfTask.size() <= 40)
-                 {
+                    }
+                  }
+                  else if (nameOfTask.size() <= 40)
+                  {
                     s += static_cast<char>(event2.text.unicode);
                     nameOfTask += static_cast<char>(event2.text.unicode);
-                 }
-                 else
-                 {
+                  }
+                  else
+                  {
                     errorWindow("too long name for task!", font);
-                 }
+                  }
                 }
               }
               // if user click on the ok , task name will be changed and window4 will be closed
               if (event2.type == sf::Event::EventType::MouseButtonPressed)
               {
-                 if (event2.key.code == sf::Mouse::Left && sf::Mouse::getPosition(window2).x >= ok.getPosition().x &&
-                   sf::Mouse::getPosition(window2).x <= ok.getPosition().x + ok.getGlobalBounds().width &&
-                   sf::Mouse::getPosition(window2).y >= ok.getPosition().y &&
-                   sf::Mouse::getPosition(window2).y <= ok.getPosition().y + ok.getGlobalBounds().height)
-                 {
-                   isOk=true;
-                   window2.close();
-                 }
-               }
-               // if user click on the cancel , only window2 will be closed
-               if (event2.type == sf::Event::EventType::MouseButtonPressed)
-               {
-                  if (event2.key.code == sf::Mouse::Left && sf::Mouse::getPosition(window2).x >= cancel.getPosition().x - cancel.getGlobalBounds().width &&
+                if (event2.key.code == sf::Mouse::Left && sf::Mouse::getPosition(window2).x >= ok.getPosition().x &&
+                    sf::Mouse::getPosition(window2).x <= ok.getPosition().x + ok.getGlobalBounds().width &&
+                    sf::Mouse::getPosition(window2).y >= ok.getPosition().y &&
+                    sf::Mouse::getPosition(window2).y <= ok.getPosition().y + ok.getGlobalBounds().height)
+                {
+                  isOk = true;
+                  window2.close();
+                }
+              }
+              // if user click on the cancel , only window2 will be closed
+              if (event2.type == sf::Event::EventType::MouseButtonPressed)
+              {
+                if (event2.key.code == sf::Mouse::Left && sf::Mouse::getPosition(window2).x >= cancel.getPosition().x - cancel.getGlobalBounds().width &&
                     sf::Mouse::getPosition(window2).x <= cancel.getPosition().x &&
                     sf::Mouse::getPosition(window2).y >= cancel.getPosition().y &&
                     sf::Mouse::getPosition(window2).y <= cancel.getPosition().y + cancel.getGlobalBounds().height)
-                  {
-                    isOk=false;
-                    window2.close();
-                  }
+                {
+                  isOk = false;
+                  window2.close();
                 }
-
-
-
-
+              }
             }
             textMessage.setString(s);
             window2.clear();
@@ -173,7 +173,7 @@ int main()
           }
           if (isOk == true)
           {
-            if(nameOfTask.empty())
+            if (nameOfTask.empty())
             {
               errorWindow("task name is empty!", font);
             }
@@ -245,14 +245,11 @@ int main()
               sf::Mouse::getPosition(window).y >= tasks[i].get_PencilSprite().getPosition().y &&
               sf::Mouse::getPosition(window).y <= tasks[i].get_PencilSprite().getPosition().y + tasks[i].get_PencilSprite().getGlobalBounds().height)
           {
-             sf::RenderWindow window4(sf::VideoMode(1150, 647),"Edit task : ") ;
-             manage_window4(window4, tasks, font, i);
+            sf::RenderWindow window4(sf::VideoMode(1150, 647), "Edit task : ");
+            manage_window4(window4, tasks, font, i);
           }
         }
       }
-
-
-
     }
     window.clear();
     window.draw(backgroundSpr); // draw picture of background
@@ -303,10 +300,9 @@ int main()
       rect[0].setPosition(sf::Vector2f(0, taskName[0].getPosition().y + 60));
       tasks[0].setPositionCircleSpr(10, line.getPosition().y + 10);
       tasks[0].setPositionTrashSpr(window.getSize().x - 50, line.getPosition().y + 10);
-      tasks[0].setPositionStarSpr(window.getSize().x - 70-tasks[0].get_PencilSprite().getGlobalBounds().width
-      - tasks[0].get_trashSprite(). getGlobalBounds(). width,line.getPosition().y + 10);
-      tasks[0].setPositionPencilSpr(window.getSize().x - 65 - tasks[0].get_trashSprite(). getGlobalBounds(). width,
-        line.getPosition().y + 10);
+      tasks[0].setPositionStarSpr(window.getSize().x - 70 - tasks[0].get_PencilSprite().getGlobalBounds().width - tasks[0].get_trashSprite().getGlobalBounds().width, line.getPosition().y + 10);
+      tasks[0].setPositionPencilSpr(window.getSize().x - 65 - tasks[0].get_trashSprite().getGlobalBounds().width,
+                                    line.getPosition().y + 10);
       window.draw(taskName[0]);
       window.draw(tasks[0].get_circleSprite());
       window.draw(tasks[0].get_trashSprite());
@@ -319,12 +315,11 @@ int main()
       taskName[i].setString(tasks[i].get_task_name());
       taskName[i].setPosition(sf::Vector2f(70, rect[i - 1].getPosition().y + 10));
       rect[i].setPosition(sf::Vector2f(0, taskName[i].getPosition().y + 60));
-      tasks[i].setPositionCircleSpr(10, rect[i-1].getPosition().y + 10);
-      tasks[i].setPositionTrashSpr(window.getSize().x - 50, rect[i-1].getPosition().y + 10);
-      tasks[i].setPositionStarSpr(window.getSize().x - 70-tasks[i].get_PencilSprite().getGlobalBounds().width
-      - tasks[i].get_trashSprite(). getGlobalBounds(). width,rect[i-1].getPosition().y + 10);
-      tasks[i].setPositionPencilSpr(window.getSize().x - 65 - tasks[i].get_trashSprite(). getGlobalBounds(). width,
-        rect[i-1].getPosition().y + 10);
+      tasks[i].setPositionCircleSpr(10, rect[i - 1].getPosition().y + 10);
+      tasks[i].setPositionTrashSpr(window.getSize().x - 50, rect[i - 1].getPosition().y + 10);
+      tasks[i].setPositionStarSpr(window.getSize().x - 70 - tasks[i].get_PencilSprite().getGlobalBounds().width - tasks[i].get_trashSprite().getGlobalBounds().width, rect[i - 1].getPosition().y + 10);
+      tasks[i].setPositionPencilSpr(window.getSize().x - 65 - tasks[i].get_trashSprite().getGlobalBounds().width,
+                                    rect[i - 1].getPosition().y + 10);
       window.draw(taskName[i]);
       window.draw(tasks[i].get_circleSprite());
       window.draw(tasks[i].get_trashSprite());

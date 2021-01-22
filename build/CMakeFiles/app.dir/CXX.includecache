@@ -31,12 +31,14 @@ vector
 -
 SFML/Graphics.hpp
 -
+cstring
+-
 
-/home/fn/exercise5_991/Graphical_ToDo/src/functions.cpp
+/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/src/functions.cpp
 functions.hpp
-/home/fn/exercise5_991/Graphical_ToDo/src/functions.hpp
+/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/src/functions.hpp
 
-/home/fn/exercise5_991/Graphical_ToDo/src/main.cpp
+/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/src/main.cpp
 iostream
 -
 chrono
@@ -44,23 +46,7 @@ chrono
 ctime
 -
 functions.hpp
-/home/fn/exercise5_991/Graphical_ToDo/src/functions.hpp
+/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/src/functions.hpp
 task.hpp
-/home/fn/exercise5_991/Graphical_ToDo/src/task.hpp
-
-/home/fn/exercise5_991/Graphical_ToDo/src/task.cpp
-iostream
--
-string
--
-vector
--
-iomanip
--
-cstdlib
--
-time.h
--
-task.hpp
-/home/fn/exercise5_991/Graphical_ToDo/src/task.hpp
+/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/src/task.hpp
 

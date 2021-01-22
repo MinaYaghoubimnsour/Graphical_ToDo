@@ -6,17 +6,19 @@
 #include <time.h>
 #include "task.hpp"
 using namespace std;
-task::task(string n) : task_name(n)
+task::task(string n) //: task_name(n)
 {
+  strcpy(task_name, n.c_str());
 }
 void task::set_task_name(string n)
 {
-  task_name = n;
+  //task_name = n;
+  strcpy(task_name, n.c_str());
 }
 
 string task::get_task_name()
 {
-  return task_name;
+  return static_cast<string>(task_name);
 }
 
 void task::set_favorite(bool b)
@@ -44,13 +46,12 @@ void task::loadCircleTexture()
 {
   if (isCompleted)
   {
-    circle.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/checkmark.png");
+    circle.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/checkmark.png");
   }
   else
   {
-    circle.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/circle.png");
+    circle.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/circle.png");
   }
-
 }
 
 void task::setTextureCircleSpr()
@@ -60,9 +61,7 @@ void task::setTextureCircleSpr()
 void task::setPositionCircleSpr(float x, float y)
 {
   circleSpr.setPosition(sf::Vector2f(x, y));
-
 }
-
 
 sf::Texture task::get_circleTexture()
 {
@@ -76,7 +75,7 @@ sf::Sprite task::get_circleSprite()
 //member functions which relate to trash icon
 void task::loadTrashTexture()
 {
-  trash.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/trash.png");
+  trash.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/trash.png");
 }
 void task::setTextureTrashSpr()
 {
@@ -84,7 +83,7 @@ void task::setTextureTrashSpr()
 }
 void task::setPositionTrashSpr(float x, float y)
 {
-  trashSpr.setPosition(x,y);
+  trashSpr.setPosition(x, y);
 }
 
 sf::Texture task::get_trashTexture()
@@ -101,11 +100,10 @@ sf::Sprite task::get_trashSprite()
 
 void task::loadStarTexture()
 {
-  if(!favorite)
-  star.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/Star.png");
+  if (!favorite)
+    star.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/Star.png");
   else
-  star.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/yellowStar.png");
-
+    star.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/yellowStar.png");
 }
 
 void task::setTextureStarSpr()
@@ -127,11 +125,10 @@ sf::Sprite task::get_starSprite()
   return starSpr;
 }
 
-
 //member functions which relate to pencil icon
 void task::loadPencilTexture()
 {
-  pencil.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/pencil .png");
+  pencil.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/pencil .png");
 }
 void task::setTexturePencilSpr()
 {
@@ -139,7 +136,7 @@ void task::setTexturePencilSpr()
 }
 void task::setPositionPencilSpr(float x, float y)
 {
-  pencilSpr.setPosition(sf::Vector2f(x,y));
+  pencilSpr.setPosition(sf::Vector2f(x, y));
 }
 sf::Texture task::get_PencilTexture()
 {

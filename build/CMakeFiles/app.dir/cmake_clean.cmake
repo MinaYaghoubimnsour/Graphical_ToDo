@@ -1,9 +1,9 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/app.dir/src/main.cpp.o"
   "CMakeFiles/app.dir/src/functions.cpp.o"
+  "CMakeFiles/app.dir/src/main.cpp.o"
   "CMakeFiles/app.dir/src/task.cpp.o"
-  "app.pdb"
   "app"
+  "app.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

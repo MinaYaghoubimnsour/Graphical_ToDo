@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <cstring>
 typedef unsigned int ui;
 class task
 {
@@ -43,7 +44,8 @@ public:
     sf::Sprite get_PencilSprite();
 
 private:
-    std::string task_name;
+    //std::string task_name;
+    char task_name[45];
     bool favorite = false;
     bool isCompleted = false;
     sf::Texture circle;
