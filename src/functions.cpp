@@ -29,18 +29,12 @@ void setFirstLine(sf::RenderWindow &window, sf::RectangleShape &line, sf::Sprite
     line.setPosition(sf::Vector2f(0, calendarSpr.getGlobalBounds().height + 20));
 }
 
-void manage_window2(sf::RenderWindow & window ,sf::RenderWindow & window2, vector<task> & tasks , vector<sf::RectangleShape> & rect , vector<sf::Text>& taskName , sf::Font & font )
-{
-
-}
-
-
 
 void manage_window3(sf::RenderWindow & window3, vector<task> & tasks, sf::Font & font, int i)
 {
   sf::Texture window3BackgroundTexture;
   sf::Sprite window3BackgroundSprite;
-  window3BackgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background2.jpg");
+  window3BackgroundTexture.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/background2.jpg");
   window3BackgroundSprite.setTexture(window3BackgroundTexture);
   sf::Event event;
   sf::Text message, yes, no;
@@ -49,22 +43,21 @@ void manage_window3(sf::RenderWindow & window3, vector<task> & tasks, sf::Font &
   yes.setFont(font);
   no.setFont(font);
 
-  message.setCharacterSize(40);
   yes.setCharacterSize(40);
   no.setCharacterSize(40);
 
   string str = tasks[i].get_task_name();
-  message.setString("Are you sure to delete " + str + " task ?");
+  message.setString("Are you sure to delete below task : \n" + str);
   yes.setString("YES");
   no.setString("NO");
 
-  message.setFillColor(sf::Color(250,50,97));
-  yes.setFillColor(sf::Color(250,50,97));
-  no.setFillColor(sf::Color(250,50,97));
+  message.setFillColor(sf::Color::Black);
+  yes.setFillColor(sf::Color::Black);
+  no.setFillColor(sf::Color::Black);
 
   yes.setOrigin(sf::Vector2f(yes.getGlobalBounds().width, 0));
-  yes.setPosition(sf::Vector2f(window3.getSize().x/2 - 20 , 250));
-  no.setPosition(sf::Vector2f(window3.getSize().x/2 + 20 , 250));
+  yes.setPosition(sf::Vector2f(window3.getSize().x/2 - 20 , 500));
+  no.setPosition(sf::Vector2f(window3.getSize().x/2 + 20 , 500));
 
   while(window3.isOpen())
   {
@@ -110,7 +103,7 @@ void manage_window4(sf::RenderWindow & window4, vector<task> & tasks, sf::Font &
 {
   sf::Texture window4BackgroundTexture;
   sf::Sprite window4BackgroundSprite;
-  window4BackgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background2.jpg");
+  window4BackgroundTexture.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/background2.jpg");
   window4BackgroundSprite.setTexture(window4BackgroundTexture);
   sf::Event event;
   sf::Text message, ok, cancel;
@@ -126,18 +119,17 @@ void manage_window4(sf::RenderWindow & window4, vector<task> & tasks, sf::Font &
   ok.setString("OK");
   cancel.setString("CANCEL");
 
-  message.setCharacterSize(40);
   ok.setCharacterSize(40);
   cancel.setCharacterSize(40);
 
-  message.setFillColor(sf::Color(250,50,97));
-  ok.setFillColor(sf::Color(250,50,97));
-  cancel.setFillColor(sf::Color(250,50,97));
+  message.setFillColor(sf::Color::Black);
+  ok.setFillColor(sf::Color::Black);
+  cancel.setFillColor(sf::Color::Black);
 
 
   cancel.setOrigin(sf::Vector2f(cancel.getGlobalBounds().width, 0));
-  cancel.setPosition(sf::Vector2f(window4.getSize().x/2 - 20 , 250));
-  ok.setPosition(sf::Vector2f(window4.getSize().x/2 + 20 , 250));
+  cancel.setPosition(sf::Vector2f(window4.getSize().x/2 - 20 , 500));
+  ok.setPosition(sf::Vector2f(window4.getSize().x/2 + 20 , 500));
 
   while(window4.isOpen())
   {
@@ -160,12 +152,15 @@ void manage_window4(sf::RenderWindow & window4, vector<task> & tasks, sf::Font &
               nameOfTask.erase(nameOfTask.begin() + nameOfTask.size() - 1);
            }
          }
+         else if(nameOfTask.size() <= 40)
+         {
+            s += static_cast<char>(event.text.unicode);
+            nameOfTask += static_cast<char>(event.text.unicode);
+         }
          else
-        {
-         s += static_cast<char>(event.text.unicode);
-         nameOfTask += static_cast<char>(event.text.unicode);
-
-        }
+         {
+            errorWindow("too long name for task!", font);
+         }
 
         }
       }
@@ -177,9 +172,15 @@ void manage_window4(sf::RenderWindow & window4, vector<task> & tasks, sf::Font &
            sf::Mouse::getPosition(window4).y >= ok.getPosition().y &&
            sf::Mouse::getPosition(window4).y <= ok.getPosition().y + ok.getGlobalBounds().height)
          {
-
-           tasks[i].set_task_name(nameOfTask);
-           window4.close();
+            if(nameOfTask.empty())
+            {
+              errorWindow("task name is empty !", font);
+            }
+            else
+            {
+               tasks[i].set_task_name(nameOfTask);
+               window4.close();
+             }
          }
        }
        // if user click on the cancel , only window4 will be closed
@@ -205,3 +206,61 @@ void manage_window4(sf::RenderWindow & window4, vector<task> & tasks, sf::Font &
 
   } // end of while(window4.isOpen())
 }
+void errorWindow(string error, sf::Font & font)
+{
+  sf::RenderWindow errorWindow(sf::VideoMode(284, 177), "Error :");
+  sf::Event event;
+
+  sf::Texture errorBackground;
+  sf::Sprite  errorBackgroundSpr;
+  errorBackground.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/erroBackground.jpg");
+  errorBackgroundSpr.setTexture(errorBackground);
+
+  sf::Text errorMessage, ok;
+  errorMessage.setFont(font);
+  errorMessage.setString(error);
+  errorMessage.setFillColor(sf::Color::Red);
+  errorMessage.setOrigin(sf::Vector2f(errorMessage.getGlobalBounds().width/2, 0));
+  errorMessage.setPosition(sf::Vector2f(errorWindow.getSize().x/2, 30));
+
+  ok.setFont(font);
+  ok.setString("OK");
+  ok.setFillColor(sf::Color::Red);
+  ok.setOrigin(sf::Vector2f(ok.getGlobalBounds().width/2, 0));
+  ok.setPosition(sf::Vector2f(errorWindow.getSize().x/2, 120));
+
+   while(errorWindow.isOpen())
+   {
+     while(errorWindow.pollEvent(event))
+     {
+       if(event.type == sf::Event::EventType::Closed)
+       {
+         errorWindow.close();
+       }
+       if (event.type == sf::Event::EventType::MouseButtonPressed)
+       {
+          if (event.key.code == sf::Mouse::Left && sf::Mouse::getPosition(errorWindow).x >= ok.getPosition().x &&
+            sf::Mouse::getPosition(errorWindow).x <= ok.getPosition().x + ok.getGlobalBounds().width &&
+            sf::Mouse::getPosition(errorWindow).y >= ok.getPosition().y &&
+            sf::Mouse::getPosition(errorWindow).y <= ok.getPosition().y + ok.getGlobalBounds().height)
+          {
+            errorWindow.close();
+          }
+        }
+
+
+     } // end of while(errorWindow.pollEvent(event))
+     errorWindow.draw(errorBackgroundSpr);
+     errorWindow.draw(errorMessage);
+     errorWindow.draw(ok);
+     errorWindow.display();
+   } // end of while(errorWindow.isOpen())
+
+}
+
+
+// void writeInFile(fstream file, vector<task> & tasks)
+// {
+//
+// }
+// void readFromFile(fstream file, vector<task> & tasks);

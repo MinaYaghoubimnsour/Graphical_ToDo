@@ -11,8 +11,6 @@ int main()
   vector<task> tasks;
   vector<sf::RectangleShape> rect;
   vector<sf::Text> taskName;
-  vector<sf::Texture> circleTexture;
-  vector<sf::Sprite> circleSprite;
   //object of class RenderWindow and Event
 
   sf::RenderWindow window(sf::VideoMode(1402, 789), "To Do");
@@ -21,13 +19,13 @@ int main()
   // background
   sf::Texture backgroundTexture;
   sf::Sprite backgroundSpr;
-  backgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background.jpg");
+  backgroundTexture.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/background.jpg");
   backgroundSpr.setTexture(backgroundTexture);
   //icon calendar
 
   sf::Texture calendarTexture;
   sf::Sprite calendarSpr;
-  calendarTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/schedule.png");
+  calendarTexture.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/schedule.png");
   calendarSpr.setTexture(calendarTexture);
   calendarSpr.setPosition(sf::Vector2f(10, 0));
 
@@ -35,7 +33,7 @@ int main()
 
   sf::Text timeTxt;
   sf::Font font;
-  font.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/blackjack.otf");
+  font.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/blackjack.otf");
   setTime(timeTxt, font, calendarSpr);
 
   //A line after date and time
@@ -47,11 +45,12 @@ int main()
   // print name of task
   sf::Text nameTxt;
   sf::Font nameFont;
-  nameFont.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/blackjack.otf");
+  nameFont.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/blackjack.otf");
   nameTxt.setFont(nameFont);
   nameTxt.setFillColor(sf::Color::Black);
 
-
+  // fstream file;
+  // readFromFile(file, tasks);
   string s, nameOfTask = "";
 
   while (window.isOpen())
@@ -71,18 +70,17 @@ int main()
         {
           s = "";
           nameOfTask = "";
-          sf::RenderWindow window2(sf::VideoMode(614, 345), "Add Task : ", sf::Style::Titlebar | sf::Style::Close);
+          sf::RenderWindow window2(sf::VideoMode(1150, 647), "Add Task : ", sf::Style::Titlebar | sf::Style::Close);
           sf::Texture background_window2;
           sf::Sprite background_window2_Sprite;
-          background_window2.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background2.jpg");
+          background_window2.loadFromFile("/home/fn/exercise5_991/Graphical_ToDo/background2.jpg");
           background_window2_Sprite.setTexture(background_window2);
 
           sf::Text textMessage, ok , cancel;
-          textMessage.setFillColor(sf::Color(250,50,97));
-          ok.setFillColor(sf::Color(250,50,97));
-          cancel.setFillColor(sf::Color(250,50,97));
+          textMessage.setFillColor(sf::Color::Black);
+          ok.setFillColor(sf::Color::Black);
+          cancel.setFillColor(sf::Color::Black);
 
-          textMessage.setCharacterSize(40);
           ok.setCharacterSize(40);
           cancel.setCharacterSize(40);
 
@@ -97,10 +95,10 @@ int main()
           cancel.setString("CANCEL");
 
           cancel.setOrigin(sf::Vector2f(cancel.getGlobalBounds().width, 0));
-          cancel.setPosition(sf::Vector2f(window2.getSize().x/2 - 20 , 250));
-          ok.setPosition(sf::Vector2f(window2.getSize().x/2 + 20 , 250));
+          cancel.setPosition(sf::Vector2f(window2.getSize().x/2 - 20 , 500));
+          ok.setPosition(sf::Vector2f(window2.getSize().x/2 + 20 , 500));
 
-          bool isOk=false;
+          bool isOk = false;
           while (window2.isOpen())
           {
             sf::Event event2;
@@ -125,16 +123,17 @@ int main()
                       nameOfTask.erase(nameOfTask.begin() + nameOfTask.size() - 1);
                    }
                  }
-                 else
+                 else if(nameOfTask.size() <= 40)
                  {
                     s += static_cast<char>(event2.text.unicode);
                     nameOfTask += static_cast<char>(event2.text.unicode);
-
                  }
-
+                 else
+                 {
+                    errorWindow("too long name for task!", font);
+                 }
                 }
               }
-
               // if user click on the ok , task name will be changed and window4 will be closed
               if (event2.type == sf::Event::EventType::MouseButtonPressed)
               {
@@ -172,18 +171,26 @@ int main()
             window2.draw(cancel);
             window2.display();
           }
-          if (isOk==true)
+          if (isOk == true)
           {
+            if(nameOfTask.empty())
+            {
+              errorWindow("task name is empty!", font);
+            }
+            else
+            {
               task task1(nameOfTask);
               tasks.push_back(task1);
               sf::Text taskName1;
               taskName1.setFont(font);
               taskName1.setString(nameOfTask);
+              taskName1.setFillColor(sf::Color::Black);
               taskName.push_back(taskName1);
               sf::RectangleShape rectangle;
               rectangle.setFillColor(sf::Color::Black);
               rectangle.setSize(sf::Vector2f(window.getSize().x, 4));
               rect.push_back(rectangle);
+            }
           }
         }
       }
@@ -196,7 +203,7 @@ int main()
               sf::Mouse::getPosition(window).y >= tasks[i].get_circleSprite().getPosition().y &&
               sf::Mouse::getPosition(window).y <= tasks[i].get_circleSprite().getPosition().y + tasks[i].get_circleSprite().getGlobalBounds().height)
           {
-            // cout << "i ->" << i << endl;
+
             tasks[i].set_isCompleted(!tasks[i].get_isCompleted());
           }
         }
@@ -210,7 +217,7 @@ int main()
               sf::Mouse::getPosition(window).y >= tasks[i].get_trashSprite().getPosition().y &&
               sf::Mouse::getPosition(window).y <= tasks[i].get_trashSprite().getPosition().y + tasks[i].get_trashSprite().getGlobalBounds().height)
           {
-            sf::RenderWindow window3(sf::VideoMode(614, 345), "confirm to delete task");
+            sf::RenderWindow window3(sf::VideoMode(1150, 647), "confirm to delete task");
             manage_window3(window3, tasks, font, i);
           }
         }
@@ -238,7 +245,7 @@ int main()
               sf::Mouse::getPosition(window).y >= tasks[i].get_PencilSprite().getPosition().y &&
               sf::Mouse::getPosition(window).y <= tasks[i].get_PencilSprite().getPosition().y + tasks[i].get_PencilSprite().getGlobalBounds().height)
           {
-             sf::RenderWindow window4(sf::VideoMode(614, 345),"Edit task : ") ;
+             sf::RenderWindow window4(sf::VideoMode(1150, 647),"Edit task : ") ;
              manage_window4(window4, tasks, font, i);
           }
         }

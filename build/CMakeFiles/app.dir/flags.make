@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=gnu++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/include 
+CXX_INCLUDES = -I/home/fn/exercise5_991/Graphical_ToDo/include 
 
