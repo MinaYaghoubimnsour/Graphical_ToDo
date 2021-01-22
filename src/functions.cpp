@@ -28,26 +28,40 @@ void setFirstLine(sf::RenderWindow &window, sf::RectangleShape &line, sf::Sprite
     line.setSize(sf::Vector2f(window.getSize().x, 4));
     line.setPosition(sf::Vector2f(0, calendarSpr.getGlobalBounds().height + 20));
 }
+
+void manage_window2(sf::RenderWindow & window ,sf::RenderWindow & window2, vector<task> & tasks , vector<sf::RectangleShape> & rect , vector<sf::Text>& taskName , sf::Font & font )
+{
+
+}
+
+
+
 void manage_window3(sf::RenderWindow & window3, vector<task> & tasks, sf::Font & font, int i)
 {
   sf::Texture window3BackgroundTexture;
   sf::Sprite window3BackgroundSprite;
-  window3BackgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background_window3.jpg");
+  window3BackgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background2.jpg");
   window3BackgroundSprite.setTexture(window3BackgroundTexture);
   sf::Event event;
   sf::Text message, yes, no;
+
   message.setFont(font);
   yes.setFont(font);
   no.setFont(font);
-  yes.setCharacterSize(100);
-  no.setCharacterSize(100);
+
+  message.setCharacterSize(40);
+  yes.setCharacterSize(40);
+  no.setCharacterSize(40);
+
   string str = tasks[i].get_task_name();
   message.setString("Are you sure to delete " + str + " task ?");
   yes.setString("YES");
   no.setString("NO");
-  message.setFillColor(sf::Color(250, 150, 200));
-  yes.setFillColor(sf::Color(250, 150, 200));
-  no.setFillColor(sf::Color(250, 150, 200));
+
+  message.setFillColor(sf::Color(250,50,97));
+  yes.setFillColor(sf::Color(250,50,97));
+  no.setFillColor(sf::Color(250,50,97));
+
   yes.setOrigin(sf::Vector2f(yes.getGlobalBounds().width, 0));
   yes.setPosition(sf::Vector2f(window3.getSize().x/2 - 20 , 250));
   no.setPosition(sf::Vector2f(window3.getSize().x/2 + 20 , 250));
@@ -96,7 +110,7 @@ void manage_window4(sf::RenderWindow & window4, vector<task> & tasks, sf::Font &
 {
   sf::Texture window4BackgroundTexture;
   sf::Sprite window4BackgroundSprite;
-  window4BackgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background_window3.jpg");
+  window4BackgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background2.jpg");
   window4BackgroundSprite.setTexture(window4BackgroundTexture);
   sf::Event event;
   sf::Text message, ok, cancel;
@@ -104,12 +118,22 @@ void manage_window4(sf::RenderWindow & window4, vector<task> & tasks, sf::Font &
   ok.setFont(font);
   cancel.setFont(font);
 
-  ok.setString("OK");
-  cancel.setString("CANCEL");
 
   string s = "Please enter new name of task : \n";
   string nameOfTask = "";
+
   message.setString(s);
+  ok.setString("OK");
+  cancel.setString("CANCEL");
+
+  message.setCharacterSize(40);
+  ok.setCharacterSize(40);
+  cancel.setCharacterSize(40);
+
+  message.setFillColor(sf::Color(250,50,97));
+  ok.setFillColor(sf::Color(250,50,97));
+  cancel.setFillColor(sf::Color(250,50,97));
+
 
   cancel.setOrigin(sf::Vector2f(cancel.getGlobalBounds().width, 0));
   cancel.setPosition(sf::Vector2f(window4.getSize().x/2 - 20 , 250));
@@ -130,8 +154,11 @@ void manage_window4(sf::RenderWindow & window4, vector<task> & tasks, sf::Font &
         {
           if(event.text.unicode == 8)
          {
-           s.erase(s.begin() + s.size() - 1);
-           nameOfTask.erase(nameOfTask.begin() + nameOfTask.size() - 1);
+           if( nameOfTask.size()!=0)
+           {
+              s.erase(s.begin() + s.size() - 1);
+              nameOfTask.erase(nameOfTask.begin() + nameOfTask.size() - 1);
+           }
          }
          else
         {
@@ -150,7 +177,7 @@ void manage_window4(sf::RenderWindow & window4, vector<task> & tasks, sf::Font &
            sf::Mouse::getPosition(window4).y >= ok.getPosition().y &&
            sf::Mouse::getPosition(window4).y <= ok.getPosition().y + ok.getGlobalBounds().height)
          {
-           
+
            tasks[i].set_task_name(nameOfTask);
            window4.close();
          }
