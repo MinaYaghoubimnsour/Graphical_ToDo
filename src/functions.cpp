@@ -33,7 +33,7 @@ void manage_window3(sf::RenderWindow &window3, vector<task> &tasks, sf::Font &fo
 {
   sf::Texture window3BackgroundTexture;
   sf::Sprite window3BackgroundSprite;
-  window3BackgroundTexture.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/background2.jpg");
+  window3BackgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background2.jpg");
   window3BackgroundSprite.setTexture(window3BackgroundTexture);
   sf::Event event;
   sf::Text message, yes, no;
@@ -101,7 +101,7 @@ void manage_window4(sf::RenderWindow &window4, vector<task> &tasks, sf::Font &fo
 {
   sf::Texture window4BackgroundTexture;
   sf::Sprite window4BackgroundSprite;
-  window4BackgroundTexture.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/background2.jpg");
+  window4BackgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background2.jpg");
   window4BackgroundSprite.setTexture(window4BackgroundTexture);
   sf::Event event;
   sf::Text message, ok, cancel;
@@ -208,7 +208,7 @@ void errorWindow(string error, sf::Font &font)
 
   sf::Texture errorBackground;
   sf::Sprite errorBackgroundSpr;
-  errorBackground.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/git4/Graphical_ToDo/erroBackground.jpg");
+  errorBackground.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/erroBackground.jpg");
   errorBackgroundSpr.setTexture(errorBackground);
 
   sf::Text errorMessage, ok;
@@ -276,4 +276,16 @@ void ReadFromFile(ifstream &file, vector<task> &tasks, vector<sf::Text> &taskNam
     ++i;
   }
   file.clear();
+}
+
+void writeInFile(ofstream &file, vector<task> &tasks)
+{
+  int size = 0;
+  while (size < tasks.size())
+  {
+    file.seekp(size * sizeof(task), ios::beg);
+    file.write((char *)&tasks[size], sizeof(tasks[size]));
+    ++size;
+    fflush;
+  }
 }
