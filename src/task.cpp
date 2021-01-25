@@ -46,11 +46,11 @@ void task::loadCircleTexture()
 {
   if (isCompleted)
   {
-    circle.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/checkmark.png");
+    circle.loadFromFile("../images/checkmark.png");
   }
   else
   {
-    circle.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/circle.png");
+    circle.loadFromFile("../images/circle.png");
   }
 }
 
@@ -75,7 +75,7 @@ sf::Sprite task::get_circleSprite()
 //member functions which relate to trash icon
 void task::loadTrashTexture()
 {
-  trash.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/trash.png");
+  trash.loadFromFile("../images/trash.png");
 }
 void task::setTextureTrashSpr()
 {
@@ -101,9 +101,9 @@ sf::Sprite task::get_trashSprite()
 void task::loadStarTexture()
 {
   if (!favorite)
-    star.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/Star.png");
+    star.loadFromFile("../images/Star.png");
   else
-    star.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/yellowStar.png");
+    star.loadFromFile("../images/yellowStar.png");
 }
 
 void task::setTextureStarSpr()
@@ -128,7 +128,7 @@ sf::Sprite task::get_starSprite()
 //member functions which relate to pencil icon
 void task::loadPencilTexture()
 {
-  pencil.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/pencil .png");
+  pencil.loadFromFile("../images/pencil .png");
 }
 void task::setTexturePencilSpr()
 {

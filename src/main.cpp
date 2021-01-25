@@ -8,13 +8,13 @@ using namespace std;
 int main()
 { //font
   sf::Font font;
-  font.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/blackjack.otf");
+  font.loadFromFile("../images/blackjack.otf");
   //-----------------
   vector<task> tasks;
   vector<sf::Text> taskName;
   vector<sf::RectangleShape> rect;
   //call ReadFromFile for reading information from file
-  ifstream file("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/file.txt", ios::in);
+  ifstream file("../other_files/file.txt", ios::in);
   ReadFromFile(file, tasks, taskName, font, rect);
   file.close();
   //*******************************
@@ -25,13 +25,13 @@ int main()
   // background
   sf::Texture backgroundTexture;
   sf::Sprite backgroundSpr;
-  backgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background.jpg");
+  backgroundTexture.loadFromFile("../images/background.jpg");
   backgroundSpr.setTexture(backgroundTexture);
   //icon calendar
 
   sf::Texture calendarTexture;
   sf::Sprite calendarSpr;
-  calendarTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/schedule.png");
+  calendarTexture.loadFromFile("../images/schedule.png");
   calendarSpr.setTexture(calendarTexture);
   calendarSpr.setPosition(sf::Vector2f(10, 0));
 
@@ -49,7 +49,7 @@ int main()
   // print name of task
   sf::Text nameTxt;
   sf::Font nameFont;
-  nameFont.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/blackjack.otf");
+  nameFont.loadFromFile("../font/blackjack.otf");
   nameTxt.setFont(nameFont);
   nameTxt.setFillColor(sf::Color::Black);
 
@@ -77,7 +77,7 @@ int main()
           sf::RenderWindow window2(sf::VideoMode(1150, 647), "Add Task : ", sf::Style::Titlebar | sf::Style::Close);
           sf::Texture background_window2;
           sf::Sprite background_window2_Sprite;
-          background_window2.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background2.jpg");
+          background_window2.loadFromFile("../images/background2.jpg");
           background_window2_Sprite.setTexture(background_window2);
 
           sf::Text textMessage, ok, cancel;
@@ -329,8 +329,8 @@ int main()
     }
     window.display(); // display window
   }
-  remove("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/file.txt");
-  ofstream file2("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/file.txt", ios::out);
+  remove("../other_filese/file.txt");
+  ofstream file2("../other_filese/file.txt", ios::out);
   writeInFile(file2, tasks);
   file2.close();
   return 0;
