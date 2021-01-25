@@ -253,16 +253,27 @@ void errorWindow(string error, sf::Font &font)
 
 void ReadFromFile(ifstream &file, vector<task> &tasks, vector<sf::Text> &taskName, sf::Font &font, vector<sf::RectangleShape> &rect)
 {
+  file.seekg(0, ios::beg);
   int i = 0;
-  while (true)
+  task temp("");
+  file.tellg();
+  file.seekg(0 * sizeof(task), ios::beg);
+  file.tellg();
+  file.read(reinterpret_cast<char *>(&temp), sizeof(task));
+  cout << "matn task -> " << temp.get_task_name() << endl;
+  cout << "_______________________" << endl;
+  while (!file.eof())
   {
-    task temp("");
+    if (file.eof())
+    {
+      file.tellg();
+      file.clear();
+      break;
+    }
+    ++i;
     file.tellg();
     file.seekg(i * sizeof(task), ios::beg);
     file.tellg();
-    file.read(reinterpret_cast<char *>(&temp), sizeof(task));
-    if (file.eof())
-      break;
     tasks.push_back(temp);
     sf::Text taskName1;
     taskName1.setFont(font);
@@ -273,13 +284,24 @@ void ReadFromFile(ifstream &file, vector<task> &tasks, vector<sf::Text> &taskNam
     rectangle.setFillColor(sf::Color::Black);
     rectangle.setSize(sf::Vector2f(1402, 4));
     rect.push_back(rectangle);
-    ++i;
+    if (file.eof())
+    {
+      file.tellg();
+      file.clear();
+      break;
+    }
+    file.read(reinterpret_cast<char *>(&temp), sizeof(task));
+    if (!file.good())
+      break;
+    cout << "matn task -> " << temp.get_task_name() << endl;
+    cout << "_______________________" << endl;
   }
   file.clear();
 }
 
 void writeInFile(ofstream &file, vector<task> &tasks)
 {
+  file.seekp(0, ios::beg);
   int size = 0;
   while (size < tasks.size())
   {
@@ -288,4 +310,5 @@ void writeInFile(ofstream &file, vector<task> &tasks)
     ++size;
     fflush;
   }
+  file.clear();
 }

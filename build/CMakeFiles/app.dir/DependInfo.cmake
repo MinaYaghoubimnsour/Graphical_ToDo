@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/src/functions.cpp" "/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/build/CMakeFiles/app.dir/src/functions.cpp.o"
-  "/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/src/main.cpp" "/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/build/CMakeFiles/app.dir/src/main.cpp.o"
-  "/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/src/task.cpp" "/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/build/CMakeFiles/app.dir/src/task.cpp.o"
+  "/mnt/c/Users/Parsian.system/Desktop/test/Graphical_ToDo/src/functions.cpp" "/mnt/c/Users/Parsian.system/Desktop/test/Graphical_ToDo/build/CMakeFiles/app.dir/src/functions.cpp.o"
+  "/mnt/c/Users/Parsian.system/Desktop/test/Graphical_ToDo/src/main.cpp" "/mnt/c/Users/Parsian.system/Desktop/test/Graphical_ToDo/build/CMakeFiles/app.dir/src/main.cpp.o"
+  "/mnt/c/Users/Parsian.system/Desktop/test/Graphical_ToDo/src/task.cpp" "/mnt/c/Users/Parsian.system/Desktop/test/Graphical_ToDo/build/CMakeFiles/app.dir/src/task.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

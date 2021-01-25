@@ -332,6 +332,7 @@ int main()
   remove("../other_filese/file.txt");
   ofstream file2("../other_filese/file.txt", ios::out);
   writeInFile(file2, tasks);
+  file2.clear();
   file2.close();
   return 0;
 }
