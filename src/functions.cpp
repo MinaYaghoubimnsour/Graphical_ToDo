@@ -33,7 +33,7 @@ void manage_window3(sf::RenderWindow &window3, vector<task> &tasks, sf::Font &fo
 {
   sf::Texture window3BackgroundTexture;
   sf::Sprite window3BackgroundSprite;
-  window3BackgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background2.jpg");
+  window3BackgroundTexture.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/test/Graphical_ToDo/background2.jpg");
   window3BackgroundSprite.setTexture(window3BackgroundTexture);
   sf::Event event;
   sf::Text message, yes, no;
@@ -101,7 +101,7 @@ void manage_window4(sf::RenderWindow &window4, vector<task> &tasks, sf::Font &fo
 {
   sf::Texture window4BackgroundTexture;
   sf::Sprite window4BackgroundSprite;
-  window4BackgroundTexture.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/background2.jpg");
+  window4BackgroundTexture.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/test/Graphical_ToDo/background2.jpg");
   window4BackgroundSprite.setTexture(window4BackgroundTexture);
   sf::Event event;
   sf::Text message, ok, cancel;
@@ -208,7 +208,7 @@ void errorWindow(string error, sf::Font &font)
 
   sf::Texture errorBackground;
   sf::Sprite errorBackgroundSpr;
-  errorBackground.loadFromFile("/home/yasaman/Desktop/AP/todo_graphical/Graphical_ToDo/erroBackground.jpg");
+  errorBackground.loadFromFile("/mnt/c/Users/Parsian.system/Desktop/test/Graphical_ToDo/erroBackground.jpg");
   errorBackgroundSpr.setTexture(errorBackground);
 
   sf::Text errorMessage, ok;
@@ -253,16 +253,27 @@ void errorWindow(string error, sf::Font &font)
 
 void ReadFromFile(ifstream &file, vector<task> &tasks, vector<sf::Text> &taskName, sf::Font &font, vector<sf::RectangleShape> &rect)
 {
+  file.seekg(0, ios::beg);
   int i = 0;
-  while (true)
+  task temp("");
+  file.tellg();
+  file.seekg(0 * sizeof(task), ios::beg);
+  file.tellg();
+  file.read(reinterpret_cast<char *>(&temp), sizeof(task));
+  cout << "matn task -> " << temp.get_task_name() << endl;
+  cout << "_______________________" << endl;
+  while (!file.eof())
   {
-    task temp("");
+    if (file.eof())
+    {
+      file.tellg();
+      file.clear();
+      break;
+    }
+    ++i;
     file.tellg();
     file.seekg(i * sizeof(task), ios::beg);
     file.tellg();
-    file.read(reinterpret_cast<char *>(&temp), sizeof(task));
-    if (file.eof())
-      break;
     tasks.push_back(temp);
     sf::Text taskName1;
     taskName1.setFont(font);
@@ -273,13 +284,24 @@ void ReadFromFile(ifstream &file, vector<task> &tasks, vector<sf::Text> &taskNam
     rectangle.setFillColor(sf::Color::Black);
     rectangle.setSize(sf::Vector2f(1402, 4));
     rect.push_back(rectangle);
-    ++i;
+    if (file.eof())
+    {
+      file.tellg();
+      file.clear();
+      break;
+    }
+    file.read(reinterpret_cast<char *>(&temp), sizeof(task));
+    if (!file.good())
+      break;
+    cout << "matn task -> " << temp.get_task_name() << endl;
+    cout << "_______________________" << endl;
   }
   file.clear();
 }
 
 void writeInFile(ofstream &file, vector<task> &tasks)
 {
+  file.seekp(0, ios::beg);
   int size = 0;
   while (size < tasks.size())
   {
@@ -288,4 +310,5 @@ void writeInFile(ofstream &file, vector<task> &tasks)
     ++size;
     fflush;
   }
+  file.clear();
 }
