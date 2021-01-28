@@ -8,18 +8,22 @@ using namespace std;
 int main()
 {
   //font
-  sf::Font font;
-  font.loadFromFile("../images/blackjack.otf");
-  //-----------------
+  sf::Font font,font2;
+  font.loadFromFile("../font/blackjack.otf");
+  font2.loadFromFile("../font/blackjack.otf");
+
+  // vector for objects of task class
   vector<task> tasks;
+  // vector for show name of tasks in window
   vector<sf::Text> taskName;
+  // vector for show a line after each task
   vector<sf::RectangleShape> rect;
   //call ReadFromFile for reading information from file
   ifstream file("../other_files/file.txt", ios::in);
   ReadFromFile(file, tasks, taskName, font, rect);
   file.close();
-  //*******************************
-  //object of class RenderWindow and Event
+
+  //object of class RenderWindow and Event for main window of program
   sf::RenderWindow window(sf::VideoMode(1402, 789), "To Do");
   sf::Event event;
 
@@ -28,8 +32,8 @@ int main()
   sf::Sprite backgroundSpr;
   backgroundTexture.loadFromFile("../images/background.jpg");
   backgroundSpr.setTexture(backgroundTexture);
-  //icon calendar
 
+  //icon calendar
   sf::Texture calendarTexture;
   sf::Sprite calendarSpr;
   calendarTexture.loadFromFile("../images/schedule.png");
@@ -37,20 +41,21 @@ int main()
   calendarSpr.setPosition(sf::Vector2f(10, 0));
 
   //date and time
-
   sf::Text timeTxt;
-  setTime(timeTxt, font, calendarSpr);
+  setTime(timeTxt, font2, calendarSpr);
 
   //A line after date and time
   sf::RectangleShape line;
   setFirstLine(window, line, calendarSpr);
+
   //a part for add a task
   sf::Text addTxt;
-  partOfAddText(window, addTxt, font);
+  partOfAddText(window, addTxt, font2);
+
   // print name of task
   sf::Text nameTxt;
   sf::Font nameFont;
-  nameFont.loadFromFile("../font/blackjack.otf");
+  nameFont.loadFromFile("../font/font2.ttf");
   nameTxt.setFont(nameFont);
   nameTxt.setFillColor(sf::Color::Black);
 
@@ -62,10 +67,12 @@ int main()
   {
     while (window.pollEvent(event))
     {
+      // if user click on close button , window will be close
       if (event.type == sf::Event::EventType::Closed)
       {
         window.close();
       }
+      // if user click on "add a task" text , window2 will be made and "manage_window2" function will be called
       if (event.type == sf::Event::MouseButtonPressed)
       {
         if (event.key.code == sf::Mouse::Left && sf::Mouse::getPosition(window).x >= addTxt.getPosition().x &&
@@ -213,8 +220,8 @@ int main()
     }
     window.display(); // display window
   }
-  remove("../other_filese/file.txt");
-  ofstream file2("../other_filese/file.txt", ios::out);
+  remove("../other_files/file.txt");
+  ofstream file2("../other_files/file.txt", ios::out | ios::trunc);
   writeInFile(file2, tasks);
   file2.clear();
   file2.close();

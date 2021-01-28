@@ -6,13 +6,12 @@
 #include <time.h>
 #include "task.hpp"
 using namespace std;
-task::task(string n) //: task_name(n)
+task::task(string n)
 {
   strcpy(task_name, n.c_str());
 }
 void task::set_task_name(string n)
 {
-  //task_name = n;
   strcpy(task_name, n.c_str());
 }
 
@@ -41,15 +40,17 @@ bool task::get_isCompleted()
   return isCompleted;
 }
 
-//member functions which relate to circle icon
+//member functions which relate to circle icon :
 void task::loadCircleTexture()
 {
   if (isCompleted)
   {
+    // load picture of circle
     circle.loadFromFile("../images/checkmark.png");
   }
   else
   {
+    // load picture of marked circle
     circle.loadFromFile("../images/circle.png");
   }
 }
@@ -72,7 +73,7 @@ sf::Sprite task::get_circleSprite()
 {
   return circleSpr;
 }
-//member functions which relate to trash icon
+//member functions which relate to trash icon :
 void task::loadTrashTexture()
 {
   trash.loadFromFile("../images/trash.png");
@@ -96,13 +97,15 @@ sf::Sprite task::get_trashSprite()
   return trashSpr;
 }
 
-//member functions which relate to star icon
+//member functions which relate to star icon :
 
 void task::loadStarTexture()
 {
   if (!favorite)
+    // load picture of star
     star.loadFromFile("../images/Star.png");
   else
+    // load picture of yellow star
     star.loadFromFile("../images/yellowStar.png");
 }
 
